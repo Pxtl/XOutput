@@ -8,7 +8,6 @@ namespace XOutput
     public partial class ControllerOptions : Form
     {
         ControllerDevice dev;
-        private Thread detectThread;
         public ControllerOptions(ControllerDevice device)
         {
             InitializeComponent();
@@ -20,8 +19,6 @@ namespace XOutput
                 m.Items[0] = getBindingText(ind); //Change combobox text according to saved binding
                 m.addOption("Disabled",
                     tag: new byte[] { 255, 0, (byte)ind });
-                m.addOption("Detect",
-                    tag: new byte[] { 254, 0, (byte)ind });
                 ToolStripMenuItem axes = m.addMenu("Axes");
                 ToolStripMenuItem buttons = m.addMenu("Buttons");
                 ToolStripMenuItem dpads = m.addMenu("D-Pads");
