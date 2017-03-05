@@ -34,7 +34,12 @@ namespace XOutput
             return item;
         }
 
-        public ToolStripMenuItem addOption(string name, ToolStripMenuItem parent = null, object tag = null) {
+        public ToolStripMenuItem addOption(string name = null, ToolStripMenuItem parent = null, object tag = null) {
+            if(name == null && tag != null)
+            {
+                name = tag.ToString();
+            }
+
             ToolStripMenuItem item = new ToolStripMenuItem();
             item.Text = name;
             item.Tag = tag;
@@ -103,6 +108,5 @@ namespace XOutput
             get { return base.DropDownStyle; }
             set { }
         }
-
     }
 }

@@ -3,7 +3,6 @@ using SlimDX.DirectInput;
 
 namespace XOutput
 {
-
     public struct OutputState
     {
         public byte LX, LY, RX, RY, L2, R2;
@@ -13,19 +12,20 @@ namespace XOutput
 
     public class ControllerDevice
     {
+        public const int XINPUT_CONTROL_COUNT = 21;
         public Joystick joystick;
         int deviceNumber;
         public string name;
         public bool enabled = true;
 
         public OutputState cOutput;
-        public byte[] mapping = new byte[42];
+        public InputControl[] controlMappings = new InputControl[XINPUT_CONTROL_COUNT];
         bool[] buttons;
         int[] dPads;
         public int[] analogs;
 
 
-        delegate byte input(byte subType, byte num);
+        delegate byte input(ControlSubTypeEnum subType, byte num);
 
         public ControllerDevice(Joystick joy, int num)
         {
@@ -41,14 +41,16 @@ namespace XOutput
             dPads = jState.GetPointOfViewControllers();
             analogs = GetAxes(jState);
             
-            for (int i = 0; i < mapping.Length; i++)
-            {
-                mapping[i] = 255; //Changed default mapping to blank
-            }
-            byte[] saveData = SaveManager.Load(joy.Information.ProductName.ToString());
+            //TODO: delete this code.  Initial value is already blank.
+            //for (int i = 0; i < controlMappings.Length; i++)
+            //{
+            //    controlMappings[i] = 255; //Changed default mapping to blank
+            //}
+
+            var saveData = SaveManager.Load(joy.Information.ProductName.ToString());
             if (saveData != null)
             {
-                mapping = saveData;
+                controlMappings = saveData;
             }
         }
 
@@ -56,7 +58,7 @@ namespace XOutput
 
         public void Save()
         {
-            SaveManager.Save(joystick.Information.ProductName, mapping);
+            SaveManager.Save(joystick.Information.ProductName, controlMappings);
         }
 
         private int[] GetAxes(JoystickState jstate)
@@ -97,29 +99,29 @@ namespace XOutput
 
         #region Input Types
 
-        byte Button(byte subType, byte num)
+        byte Button(ControlSubTypeEnum subType, byte num)
         {
             int i = (int)toByte(buttons[num]) * 255;
             return (byte)i;
         }
 
-        byte Analog(byte subType, byte num)
+        byte Analog(ControlSubTypeEnum subType, byte num)
         {
             int p = analogs[num];
             switch (subType)
             {
-                case 0: //Normal
+                case ControlSubTypeEnum.Normal:
                     return (byte)(p / 256);
-                case 1: //Inverted
+                case ControlSubTypeEnum.Inverted:
                     return (byte)((65535 - p) / 256);
-                case 2: //Half
+                case ControlSubTypeEnum.Half:
                     int m = (p - 32767) / 129;
                     if (m < 0)
                     {
                         m = 0;
                     }
                     return (byte)m;
-                case 3: //Inverted Half
+                case ControlSubTypeEnum.InvertedHalf:
                     m = (p - 32767) / 129;
                     if (-m < 0)
                     {
@@ -130,9 +132,9 @@ namespace XOutput
             return 0;
         }
 
-        byte DPad(byte subType, byte num)
+        byte DPad(ControlSubTypeEnum subType, byte num)
         {
-            int i = (int)toByte(getPov(num)[subType]) * 255;
+            int i = (int)toByte(getPov(num)[(int)subType-4]) * 255;
             return (byte)i;
         }
 
@@ -151,17 +153,17 @@ namespace XOutput
             input funcDPad = DPad;
             input[] funcArray = new input[] { funcButton, funcAnalog, funcDPad };
 
-            byte[] output = new byte[21];
-            for (int i = 0; i < 21; i++)
+            byte[] output = new byte[XINPUT_CONTROL_COUNT];
+            for (int i = 0; i < XINPUT_CONTROL_COUNT; i++)
             {
-                if (mapping[i * 2] == 255)
+                if (controlMappings[i].Type == ControlTypeEnum.Disabled)
                 {
                     continue;
                 }
-                byte subtype = (byte)(mapping[i * 2] & 0x0F);
-                byte type = (byte)((mapping[i * 2] & 0xF0) >> 4);
-                byte num = mapping[(i * 2) + 1];
-                output[i] = funcArray[type](subtype, num);
+                var type = controlMappings[i].Type;
+                var subtype = controlMappings[i].SubType;
+                var num = controlMappings[i].InputIndex;
+                output[i] = funcArray[(byte)type - 1](subtype, num);
             }
 
             cOutput.A = output[0] != 0;
