@@ -1,3 +1,6 @@
 XOutput/bin/
 XOutput/obj/
 .vs/
+/packages/*
+*.csproj.user
+*.suo
