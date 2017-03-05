@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace XOutput
 {
@@ -72,14 +73,20 @@ namespace XOutput
             return new byte[] { (byte)(i * 2), l, num};
         }
 
+        public static string FixDevName(string devName) {
+            return new string(devName
+               .Where(x => !Path.GetInvalidFileNameChars().Contains(x))
+               .ToArray());
+        }
+
         public static byte[] Load(string devName) {
             if (!Directory.Exists(dirName)) {
                 Directory.CreateDirectory(dirName);
                 return null;
             }
-            string path = dirName + "\\" + devName + ".ini";
+            string path = dirName + "\\" + FixDevName(devName) + ".ini";
             if (!File.Exists(path)) {
-                File.Create(path);
+                File.Create(path).Close(); //file.create returns a stream that must be closed
                 return null;
             }
             byte[] mapping = new byte[42];
@@ -100,7 +107,7 @@ namespace XOutput
             if (!Directory.Exists(dirName)) {
                 Directory.CreateDirectory(dirName);
             }
-            string path = dirName + "\\" + devName + ".ini";
+            string path = dirName + "\\" + FixDevName(devName) + ".ini";
             if (!File.Exists(path)) {
                 File.Create(path);
             }
