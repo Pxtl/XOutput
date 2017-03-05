@@ -44,16 +44,20 @@ namespace XOutput
                     m.addOption("D-Pad " + i.ToString() + " Right", dpads,
                         new byte[] { 35, (byte)(i - 1), (byte)ind });
                 }
-                for (int i = 1; i <= dev.joystick.Capabilities.AxesCount; i++)
+                for (int i = 0; i <= dev.analogs.Length - 1; i++)
                 {
-                    m.addOption("Axis " + i.ToString(), axes,
-                        new byte[] { 16, (byte)(i - 1), (byte)ind });
-                    m.addOption("IAxis " + i.ToString(), iaxes,
-                        new byte[] { 17, (byte)(i - 1), (byte)ind });
-                    m.addOption("HAxis" + i.ToString(), haxes,
-                        new byte[] { 18, (byte)(i - 1), (byte)ind });
-                    m.addOption("IHAxis" + i.ToString(), ihaxes,
-                        new byte[] { 19, (byte)(i - 1), (byte)ind });
+                    if (dev.analogs[i] != 0)
+                    {
+                        int labelNum = i + 1;
+                        m.addOption("Axis " + labelNum.ToString(), axes,
+                            new byte[] { 16, (byte)(i), (byte)ind });
+                        m.addOption("IAxis " + labelNum.ToString(), iaxes,
+                            new byte[] { 17, (byte)(i), (byte)ind });
+                        m.addOption("HAxis" + labelNum.ToString(), haxes,
+                            new byte[] { 18, (byte)(i), (byte)ind });
+                        m.addOption("IHAxis" + labelNum.ToString(), ihaxes,
+                            new byte[] { 19, (byte)(i), (byte)ind });
+                    }
                 }
                 m.SelectionChangeCommitted += new System.EventHandler(SelectionChanged);
                 ind++;

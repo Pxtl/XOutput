@@ -22,7 +22,7 @@ namespace XOutput
         public byte[] mapping = new byte[42];
         bool[] buttons;
         int[] dPads;
-        int[] analogs;
+        public int[] analogs;
 
 
         delegate byte input(byte subType, byte num);
@@ -33,13 +33,23 @@ namespace XOutput
             deviceNumber = num;
             name = joystick.Information.InstanceName;
             cOutput = new OutputState();
-            for (int i = 0; i < 42; i++)
+
+            //initialize values
+            joystick.Poll();
+            JoystickState jState = joystick.GetCurrentState();
+            buttons = jState.GetButtons();
+            dPads = jState.GetPointOfViewControllers();
+            analogs = GetAxes(jState);
+            
+            for (int i = 0; i < mapping.Length; i++)
             {
                 mapping[i] = 255; //Changed default mapping to blank
             }
             byte[] saveData = SaveManager.Load(joy.Information.ProductName.ToString());
             if (saveData != null)
+            {
                 mapping = saveData;
+            }
         }
 
         #region Utility Functions
