@@ -78,10 +78,6 @@ namespace XOutput
         private void SelectionChanged(object sender, EventArgs e) {
             ToolStripMenuItem i = (ToolStripMenuItem)sender;
             byte[] b = (byte[])i.Tag;
-            if (b[0] == 254) {
-                //start thread
-                return;
-            }
             dev.mapping[b[2] * 2] = b[0];
             dev.mapping[(b[2] * 2) + 1] = b[1];
             dev.Save();
