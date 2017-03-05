@@ -52,12 +52,7 @@ namespace XOutput
         {
             if (StartStopBtn.Text == "Start")
             {
-                if (optionsWindow != null)
-                {
-                    System.Media.SystemSounds.Asterisk.Play();
-                    optionsWindow.Focus();
-                    return;
-                }
+
                 if (controllerManager.Start())
                 {
                     StartStopBtn.Text = "Stop";
@@ -128,18 +123,9 @@ namespace XOutput
 
         private void openOptions(int i)
         {
-            if (optionsWindow == null)
-            {
-                optionsWindow = new ControllerOptions(controllerManager.getController(i));
-                optionsWindow.Show();
-                optionsWindow.Activate();
-                optionsWindow.FormClosed += (sender, e) => { optionsWindow = null; };
-            }
-            else
-            {
-                System.Media.SystemSounds.Asterisk.Play();
-                optionsWindow.Focus();
-            }
+            optionsWindow = new ControllerOptions(controllerManager.getController(i));
+            optionsWindow.FormClosed += (sender, e) => { optionsWindow = null; };
+            optionsWindow.ShowDialog();
         }
 
         protected override void WndProc(ref Message m)
