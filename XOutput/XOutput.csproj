@@ -107,6 +107,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
     <Compile Include="ControllerDevice.cs" />
     <Compile Include="ControllerManager.cs" />
     <Compile Include="ControllerOptions.cs">

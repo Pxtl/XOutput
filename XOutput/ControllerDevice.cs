@@ -47,7 +47,7 @@ namespace XOutput
             //    controlMappings[i] = 255; //Changed default mapping to blank
             //}
 
-            var saveData = SaveManager.Load(joy.Information.ProductName.ToString());
+            var saveData = SaveManager.LoadDeviceControls(joy.Information.ProductName.ToString());
             if (saveData != null)
             {
                 controlMappings = saveData;
@@ -58,7 +58,7 @@ namespace XOutput
 
         public void Save()
         {
-            SaveManager.Save(joystick.Information.ProductName, controlMappings);
+            SaveManager.SaveDeviceControls(joystick.Information.ProductName, controlMappings);
         }
 
         private int[] GetAxes(JoystickState jstate)

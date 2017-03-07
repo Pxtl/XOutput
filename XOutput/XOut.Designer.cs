@@ -48,7 +48,8 @@
             this.optionsFour = new System.Windows.Forms.Button();
             this.moveFourUp = new System.Windows.Forms.Button();
             this.enabledFour = new System.Windows.Forms.CheckBox();
-            this.isExclusive = new System.Windows.Forms.CheckBox();
+            this.IsExclusiveCheckBox = new System.Windows.Forms.CheckBox();
+            this.IsAutostartCheckbox = new System.Windows.Forms.CheckBox();
             this.controllerBoxOne.SuspendLayout();
             this.controllerBoxTwo.SuspendLayout();
             this.controllerBoxThree.SuspendLayout();
@@ -246,23 +247,34 @@
             this.enabledFour.Text = "Enabled";
             this.enabledFour.UseVisualStyleBackColor = true;
             // 
-            // isExclusive
+            // IsExclusiveCheckBox
             // 
-            this.isExclusive.AutoSize = true;
-            this.isExclusive.Location = new System.Drawing.Point(18, 320);
-            this.isExclusive.Name = "isExclusive";
-            this.isExclusive.Size = new System.Drawing.Size(75, 17);
-            this.isExclusive.TabIndex = 9;
-            this.isExclusive.Text = "Exclusivity";
-            this.isExclusive.UseVisualStyleBackColor = true;
-            this.isExclusive.CheckedChanged += new System.EventHandler(this.isExclusive_CheckedChanged);
+            this.IsExclusiveCheckBox.AutoSize = true;
+            this.IsExclusiveCheckBox.Location = new System.Drawing.Point(18, 320);
+            this.IsExclusiveCheckBox.Name = "IsExclusiveCheckBox";
+            this.IsExclusiveCheckBox.Size = new System.Drawing.Size(75, 17);
+            this.IsExclusiveCheckBox.TabIndex = 9;
+            this.IsExclusiveCheckBox.Text = "Exclusivity";
+            this.IsExclusiveCheckBox.UseVisualStyleBackColor = true;
+            this.IsExclusiveCheckBox.CheckedChanged += new System.EventHandler(this.isExclusive_CheckedChanged);
+            // 
+            // AutostartCheckbox
+            // 
+            this.IsAutostartCheckbox.AutoSize = true;
+            this.IsAutostartCheckbox.Location = new System.Drawing.Point(99, 320);
+            this.IsAutostartCheckbox.Name = "AutostartCheckbox";
+            this.IsAutostartCheckbox.Size = new System.Drawing.Size(68, 17);
+            this.IsAutostartCheckbox.TabIndex = 10;
+            this.IsAutostartCheckbox.Text = "Autostart";
+            this.IsAutostartCheckbox.UseVisualStyleBackColor = true;
             // 
             // XOut
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 351);
-            this.Controls.Add(this.isExclusive);
+            this.Controls.Add(this.IsAutostartCheckbox);
+            this.Controls.Add(this.IsExclusiveCheckBox);
             this.Controls.Add(this.enabledOne);
             this.Controls.Add(this.enabledTwo);
             this.Controls.Add(this.enabledThree);
@@ -316,6 +328,7 @@
         private System.Windows.Forms.CheckBox enabledTwo;
         private System.Windows.Forms.CheckBox enabledThree;
         private System.Windows.Forms.CheckBox enabledFour;
-        private System.Windows.Forms.CheckBox isExclusive;
+        private System.Windows.Forms.CheckBox IsExclusiveCheckBox;
+        private System.Windows.Forms.CheckBox IsAutostartCheckbox;
     }
 }

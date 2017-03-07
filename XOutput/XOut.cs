@@ -38,10 +38,12 @@ namespace XOutput
         private void XOut_Shown(object sender, EventArgs e)
         {
             UpdateInfo(controllerManager.detectControllers());
+            LoadConfig();
         }
 
         private void XOut_Closing(object sender, FormClosingEventArgs e)
         {
+            SaveConfig();
             if (controllerManager.IsActive)
             {
                 controllerManager.Stop();
@@ -49,6 +51,11 @@ namespace XOutput
         }
 
         private void StartStopBtn_Click(object sender, EventArgs e)
+        {
+            ToggleRunningState();
+        }
+
+        private void ToggleRunningState()
         {
             if (StartStopBtn.Text == "Start")
             {
@@ -59,12 +66,13 @@ namespace XOutput
                     for (int i = 0; i < 4; i++)
                     {
                         checks[i].Enabled = false;
-                        isExclusive.Enabled = false;
                         foreach (Control con in boxes[i].Controls)
                         {
                             con.Enabled = false;
                         }
                     }
+                    IsExclusiveCheckBox.Enabled = false;
+                    IsAutostartCheckbox.Enabled = false;
                 }
             }
             else
@@ -75,12 +83,13 @@ namespace XOutput
                     for (int i = 0; i < 4; i++)
                     {
                         checks[i].Enabled = true;
-                        isExclusive.Enabled = true;
                         foreach (Control con in boxes[i].Controls)
                         {
                             con.Enabled = true;
                         }
                     }
+                    IsExclusiveCheckBox.Enabled = true;
+                    IsAutostartCheckbox.Enabled = true;
                 }
             }
         }
@@ -150,6 +159,21 @@ namespace XOutput
             controllerManager.changeExclusive(!controllerManager.isExclusive);
         }
 
+        private void LoadConfig()
+        {
+            var config = SaveManager.LoadConfig();
+            IsExclusiveCheckBox.Checked = config.IsExclusive;
+            IsAutostartCheckbox.Checked = config.IsAutostart;
+            if(config.IsAutostart)
+            {
+                ToggleRunningState();
+            }
+        }
 
+        private void SaveConfig()
+        {
+            var config = new Config() { IsExclusive = IsExclusiveCheckBox.Checked, IsAutostart = IsAutostartCheckbox.Checked };
+            SaveManager.SaveConfig(config);
+        }
     }
 }
