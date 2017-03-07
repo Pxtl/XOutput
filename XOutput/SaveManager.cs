@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -23,16 +25,13 @@ namespace XOutput
                 Directory.CreateDirectory(dirName);
                 return null;
             }
-            string path = $@"{ dirName }\{FixDevName(devName)}.xml";
+            string path = $@"{ dirName }\{FixDevName(devName)}.json";
 
             var serializer = new XmlSerializer(typeof(DeviceMapping));
             if (File.Exists(path))
             {
-                using (var stream = File.OpenRead(path))
-                {
-                    var deviceMapping = (DeviceMapping)serializer.Deserialize(stream);
-                    return deviceMapping.Controls;
-                }
+                string jsonString = File.ReadAllText(path);
+                return JsonConvert.DeserializeObject<InputControl[]>(jsonString, new StringEnumConverter());
             }
             else
             {
@@ -46,12 +45,8 @@ namespace XOutput
             {
                 Directory.CreateDirectory(dirName);
             }
-            string path = $@"{ dirName }\{FixDevName(devName)}.xml";
-            var serializer = new XmlSerializer(typeof(DeviceMapping));
-            using (var stream = File.Create(path))
-            {
-                serializer.Serialize(stream, new DeviceMapping { Controls = mappings, DeviceName = devName });
-            }
+            string path = $@"{ dirName }\{FixDevName(devName)}.json";
+            File.WriteAllText(path, JsonConvert.SerializeObject(mappings, Formatting.Indented, new StringEnumConverter()));
         }
     }
 
