@@ -58,6 +58,7 @@
             this.dropLX = new XOutput.MultiLevelComboBox();
             this.dropRY = new XOutput.MultiLevelComboBox();
             this.dropRX = new XOutput.MultiLevelComboBox();
+            this.CloseButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelBack
@@ -176,6 +177,7 @@
             "",
             "",
             "",
+            "",
             ""});
             this.dropA.Location = new System.Drawing.Point(717, 380);
             this.dropA.Name = "dropA";
@@ -187,6 +189,7 @@
             this.dropB.FormattingEnabled = true;
             this.dropB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropB.Items.AddRange(new object[] {
+            "",
             "",
             "",
             "",
@@ -216,6 +219,7 @@
             "",
             "",
             "",
+            "",
             ""});
             this.dropX.Location = new System.Drawing.Point(613, 338);
             this.dropX.Name = "dropX";
@@ -227,6 +231,7 @@
             this.dropY.FormattingEnabled = true;
             this.dropY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropY.Items.AddRange(new object[] {
+            "",
             "",
             "",
             "",
@@ -256,6 +261,7 @@
             "",
             "",
             "",
+            "",
             ""});
             this.dropUp.Location = new System.Drawing.Point(337, 389);
             this.dropUp.Name = "dropUp";
@@ -267,6 +273,7 @@
             this.dropDown.FormattingEnabled = true;
             this.dropDown.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropDown.Items.AddRange(new object[] {
+            "",
             "",
             "",
             "",
@@ -296,6 +303,7 @@
             "",
             "",
             "",
+            "",
             ""});
             this.dropLeft.Location = new System.Drawing.Point(251, 426);
             this.dropLeft.Name = "dropLeft";
@@ -307,6 +315,7 @@
             this.dropRight.FormattingEnabled = true;
             this.dropRight.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropRight.Items.AddRange(new object[] {
+            "",
             "",
             "",
             "",
@@ -336,6 +345,7 @@
             "",
             "",
             "",
+            "",
             ""});
             this.dropLT.Location = new System.Drawing.Point(259, 103);
             this.dropLT.Name = "dropLT";
@@ -347,6 +357,7 @@
             this.dropRT.FormattingEnabled = true;
             this.dropRT.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropRT.Items.AddRange(new object[] {
+            "",
             "",
             "",
             "",
@@ -376,6 +387,7 @@
             "",
             "",
             "",
+            "",
             ""});
             this.dropLB.Location = new System.Drawing.Point(161, 189);
             this.dropLB.Name = "dropLB";
@@ -387,6 +399,7 @@
             this.dropRB.FormattingEnabled = true;
             this.dropRB.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropRB.Items.AddRange(new object[] {
+            "",
             "",
             "",
             "",
@@ -416,6 +429,7 @@
             "",
             "",
             "",
+            "",
             ""});
             this.dropLA.Location = new System.Drawing.Point(152, 310);
             this.dropLA.Name = "dropLA";
@@ -427,6 +441,7 @@
             this.dropRA.FormattingEnabled = true;
             this.dropRA.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropRA.Items.AddRange(new object[] {
+            "",
             "",
             "",
             "",
@@ -456,6 +471,7 @@
             "",
             "",
             "",
+            "",
             ""});
             this.dropHome.Location = new System.Drawing.Point(432, 25);
             this.dropHome.Name = "dropHome";
@@ -467,6 +483,7 @@
             this.dropStart.FormattingEnabled = true;
             this.dropStart.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropStart.Items.AddRange(new object[] {
+            "",
             "",
             "",
             "",
@@ -496,6 +513,7 @@
             "",
             "",
             "",
+            "",
             ""});
             this.dropBack.Location = new System.Drawing.Point(208, 25);
             this.dropBack.Name = "dropBack";
@@ -507,6 +525,7 @@
             this.dropLY.FormattingEnabled = true;
             this.dropLY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropLY.Items.AddRange(new object[] {
+            "",
             "",
             "",
             "",
@@ -536,6 +555,7 @@
             "",
             "",
             "",
+            "",
             ""});
             this.dropLX.Location = new System.Drawing.Point(152, 337);
             this.dropLX.Name = "dropLX";
@@ -547,6 +567,7 @@
             this.dropRY.FormattingEnabled = true;
             this.dropRY.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.dropRY.Items.AddRange(new object[] {
+            "",
             "",
             "",
             "",
@@ -576,19 +597,34 @@
             "",
             "",
             "",
+            "",
             ""});
             this.dropRX.Location = new System.Drawing.Point(632, 453);
             this.dropRX.Name = "dropRX";
             this.dropRX.Size = new System.Drawing.Size(121, 21);
             this.dropRX.TabIndex = 34;
             // 
+            // CloseButton
+            // 
+            this.CloseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.CloseButton.Location = new System.Drawing.Point(921, 626);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(75, 23);
+            this.CloseButton.TabIndex = 44;
+            this.CloseButton.Text = "Close";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
+            // 
             // ControllerOptions
             // 
+            this.AcceptButton = this.CloseButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::XOutput.Properties.Resources.xbox360controller;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.CancelButton = this.CloseButton;
             this.ClientSize = new System.Drawing.Size(1008, 661);
+            this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.labelRY);
             this.Controls.Add(this.labelLY);
             this.Controls.Add(this.labelRX);
@@ -620,7 +656,7 @@
             this.Controls.Add(this.dropRY);
             this.Controls.Add(this.dropRX);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ControllerOptions";
@@ -663,5 +699,6 @@
         private System.Windows.Forms.Label labelRX;
         private System.Windows.Forms.Label labelLY;
         private System.Windows.Forms.Label labelRY;
+        private System.Windows.Forms.Button CloseButton;
     }
 }

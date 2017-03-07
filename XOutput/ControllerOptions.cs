@@ -91,5 +91,9 @@ namespace XOutput
             dev.Save();
         }
 
+        private void CloseButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
